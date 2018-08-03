@@ -7,13 +7,13 @@ import com.wdg.utils.Utilities;
 
 public class Cutsite {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		// Execute Commandments
 		execute();
 	}
 
-	public static void execute() {
+	public static void execute() throws InterruptedException {
 
 		Boolean proceedFurther = null;
 		// Call Utilities
@@ -44,7 +44,7 @@ public class Cutsite {
 		
 		if (proceedFurther) {
 			System.out.println("Add Click Iterator");
-			proceedFurther = Core.AddClickIterator(driver, 12);
+			proceedFurther = Core.AddClickIterator(driver, 4);
 		}
 		
 		if (proceedFurther) {

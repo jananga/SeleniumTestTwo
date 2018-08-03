@@ -63,6 +63,7 @@ public class Utilities {
 		} else {
 			System.out.println("Click on logout link");
 			elementLogout.click();
+			driver.quit();
 			return true;
 		}
 	}

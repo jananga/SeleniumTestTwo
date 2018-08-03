@@ -1,5 +1,9 @@
 package com.wdg.core;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -107,23 +111,21 @@ public class Core {
 
 	}
 
-	public static Boolean AddClickIterator(WebDriver driver, int iteration) {
+	public static Boolean AddClickIterator(WebDriver driver, int iteration) throws InterruptedException {
 		Boolean state = false;
-		
+
 		// Iterate for given number
 		System.out.println("Iterate for given number");
-		for(int i=0; i<iteration;i++){
-		state = AddClicker(driver);
-		
-		if(!state)
-			break;
+		for (int i = 0; i < iteration; i++) {
+			state = AddClicker(driver);
+
+			if (!state)
+				break;
 		}
 		return state;
 	}
-	
-	
-	
-	public static Boolean AddClicker(WebDriver driver) {
+
+	public static Boolean AddClicker(WebDriver driver) throws InterruptedException {
 
 		// check add present
 		WebElement elementAdd = CommonMethods.checkElemetPresent(driver, "//a[@href='javascript:confAdd(0,2)']", 2);
@@ -133,14 +135,14 @@ public class Core {
 			System.out.println("Add not present");
 			return false;
 		}
-		
+
 		// Get original Handle
-		 String originalHandle = driver.getWindowHandle();
-		
-		//Click on element add		
+		String originalHandle = driver.getWindowHandle();
+
+		// Click on element add
 		System.out.println("Click on element add");
 		elementAdd.click();
-		
+
 		WebElement elementVerifyAdd = CommonMethods.checkElemetPresent(driver, "//input[@id='submit2']", 2);
 		System.out.println("check VerifyAdd present");
 
@@ -148,26 +150,47 @@ public class Core {
 			System.out.println("elementVerifyAdd not present");
 			return false;
 		}
+
 		
-		//Click on elementVerifyAdd
+		// Click on elementVerifyAdd
 		elementVerifyAdd.click();
+
+
+		// This is to pretend as a human
 		
+		Thread.sleep(4000);
+		// driver.manage().timeouts().setScriptTimeout(100,TimeUnit.SECONDS);		
+			 
+		 //Switch to second window
+		List <String> browserTabs = new ArrayList<String>(driver.getWindowHandles());
+		
+		driver.switchTo().window(browserTabs.get(1));
+
+		
+		 WebElement elementEmail = CommonMethods.checkElemetPresent(driver, "//input[@id='mce-EMAIL']", 2);
+			System.out.println("check elementEmail present");
+
+			if (elementEmail == null) {
+				System.out.println("elementEmail not present");
+				return false;
+			}
+
+		 
+		 
+		 
 		System.out.println("Click on elementVerifyAdd");
 
+		// Do something to open new tabs
 
-	    //Do something to open new tabs
+		for (String handle : browserTabs) {
+			if (!handle.equals(originalHandle)) {
+				driver.switchTo().window(handle);
+				driver.close();
+			}
+		}
 
-	    for(String handle : driver.getWindowHandles()) {
-	        if (!handle.equals(originalHandle)) {
-	            driver.switchTo().window(handle);
-	            driver.close();
-	        }
-	    }
+		driver.switchTo().window(originalHandle);
 
-	    driver.switchTo().window(originalHandle);
-		
-		
-		
 		WebElement elementGoNextImage = CommonMethods.checkElemetPresent(driver, "//input[@id='submit3']", 2);
 		System.out.println("check elementGoNextImage present");
 
@@ -176,7 +199,7 @@ public class Core {
 			return false;
 		}
 		elementGoNextImage.click();
-		
+
 		return true;
 	}
 }
