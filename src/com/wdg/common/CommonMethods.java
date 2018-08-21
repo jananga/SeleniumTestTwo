@@ -1,5 +1,8 @@
 package com.wdg.common;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -54,6 +57,14 @@ public class CommonMethods {
 
 		WebDriverWait wait = new WebDriverWait(driver, waitingTime);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+	}
+
+	public static Date getDate() throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+		Date date1 = format.parse(String.valueOf(new Date().getHours() + ":" + new Date().getMinutes() + ":"
+				+ new Date().getSeconds()));
+
+		return date1;
 	}
 
 }

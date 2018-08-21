@@ -164,16 +164,16 @@ public class Core {
 		 //Switch to second window
 		List <String> browserTabs = new ArrayList<String>(driver.getWindowHandles());
 		
-		driver.switchTo().window(browserTabs.get(1));
+		//driver.switchTo().window(browserTabs.get(1));
 
 		
-		 WebElement elementEmail = CommonMethods.checkElemetPresent(driver, "//input[@id='mce-EMAIL']", 2);
-			System.out.println("check elementEmail present");
+		// WebElement elementEmail = CommonMethods.checkElemetPresent(driver, "//input[@id='mce-EMAIL']", 2);
+		//	System.out.println("check elementEmail present");
 
-			if (elementEmail == null) {
-				System.out.println("elementEmail not present");
-				return false;
-			}
+		//	if (elementEmail == null) {
+		//		System.out.println("elementEmail not present");
+		//		return false;
+		//	}
 
 		 
 		 
